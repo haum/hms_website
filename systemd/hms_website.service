@@ -1,0 +1,15 @@
+[Unit]
+Description=HAUM's website microservice
+After=mutli-user.target
+Requires=multi-user.target
+
+[Service]
+Type=simple
+User=oneshot
+ExecStart=/home/hms_website/dev/hms_website/systemd/run.sh
+Restart=on-failure
+RestartSec=360
+
+[Install]
+WantedBy=multi-user.target
+
