@@ -74,7 +74,7 @@ def main():
     def callback(client, topic, message):
 
         @voice_required
-        def do_work():
+        def do_work(client, topic, message):
             rabbit.publish('irc_debug', {'privmsg': 'Mise à jour du site en cours…'})
 
             success = updatesite()
@@ -87,7 +87,7 @@ def main():
 
 
         if 'command' in message and message['command'] == 'updatesite2':
-            do_work()
+            do_work(client, topic, message)
 
 
     rabbit.listeners.append(callback)
