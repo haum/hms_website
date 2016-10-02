@@ -6,13 +6,27 @@ import coloredlogs
 from hms_base.client import Client
 from hms_base.decorators import topic
 
-BUILD_COMMAND = "cd /home/oneshot/website-content && git pull && cd /home/oneshot/website && . .venv_pelican/bin/activate && rm -rf cache/ && make publish && deactivate"
+BUILD_COMMAND = (
+    "cd /home/oneshot/website-content &&"
+    "git pull && cd /home/oneshot/website &&"
+    ". .venv_pelican/bin/activate &&"
+    "rm -rf cache/ &&"
+    "make publish && deactivate")
+
 RSYNC_COMMAND = "rsync -avc --delete /home/oneshot/website/output/ /var/www/haum.org/build"
-INSULTES = ["T'as encore merdé ? Tu fais de la merde là…", "Et c'est le défilé des bugs à la con.", "Quoi ? T'as pété le site ? ... vache... on file des accès à n'importe qui de nos jours.", "Bravo. T'as tout flingué. Continue comme ça, et tu vas te faire claquer par un robot."]
+
+INSULTES = [
+    "T'as encore merdé ? Tu fais de la merde là…",
+    "Et c'est le défilé des bugs à la con.",
+    "Quoi ? T'as pété le site ? ... vache... on file des accès à n'importe qui de nos jours.",
+    "Bravo. T'as tout flingué. Continue comme ça, et tu vas te faire claquer par un robot."]
 
 
+def get_logger():
+    return logging.getLogger(__name__)
 
 def supercall(command):
+    """Call a process, log error if any and return process return value."""
     p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
     retval = p.wait()
     
@@ -23,9 +37,6 @@ def supercall(command):
 
     return retval
 
-
-def get_logger():
-    return logging.getLogger(__name__)
 
 def updatesite():
     # On essaye de fabriquer le site, et si ça casse pas on rsync
