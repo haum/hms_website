@@ -102,7 +102,7 @@ def main():
             rabbit.publish('irc_debug', {'privmsg': message})
 
 
-        if 'command' in message and message['command'] == 'updatesite2':
+        if 'command' in message and message['command'] == 'updatesite':
             do_work(client, topic, message)
 
 
