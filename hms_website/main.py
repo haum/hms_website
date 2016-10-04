@@ -7,13 +7,18 @@ from hms_base.client import Client
 from hms_base.decorators import topic
 
 BUILD_COMMAND = (
-    "cd /home/oneshot/website-content &&"
-    "git pull && cd /home/oneshot/website &&"
-    ". .venv_pelican/bin/activate &&"
-    "rm -rf cache/ &&"
-    "make publish && deactivate")
+    "cd /home/oneshot/website-content && "
+    "git pull && cd /home/oneshot/website && "
+    ". .venv_pelican/bin/activate && "
+    "rm -rf cache/ && "
+    "make publish && "
+    "deactivate"
+)
 
-RSYNC_COMMAND = "rsync -avc --delete /home/oneshot/website/output/ /var/www/haum.org/build"
+RSYNC_COMMAND = (
+    "rsync -avc --delete /home/oneshot/website/output/ /var/www/haum.org/build "
+    "&& ln -s /var/spacestatus/status /var/www/haum.org/build/spacestatus"
+)
 
 INSULTES = [
     "T'as encore merdé ? Tu fais de la merde là…",
